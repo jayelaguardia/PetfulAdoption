@@ -169,7 +169,7 @@ class App extends Component {
             <li>{this.state.cats[0] ? this.state.cats[0].description : ''}</li>
             <li>{this.state.cats[0] ? this.state.cats[0].story : ''}</li>
           </ul>
-          <button className="adoptCat" onClick={this.adoptCat}>Adopt Me!</button>
+          <button disabled={this.state.people[0] !== this.state.newPerson} className="adoptCat" onClick={this.adoptCat}>Adopt Me!</button>
         </div>
         
         <div className="dogDiv">
@@ -182,7 +182,7 @@ class App extends Component {
           <li>{this.state.dogs[0] ? this.state.dogs[0].description : ''}</li>
           <li>{this.state.dogs[0] ? this.state.dogs[0].story : ''}</li>
         </ul>
-        <button className="adoptDog" onClick={this.adoptDog}>Adopt Me!</button>
+        <button disabled={this.state.people[0] !== this.state.newPerson} className="adoptDog" onClick={this.adoptDog}>Adopt Me!</button>
         </div>
       </section>
 
@@ -190,7 +190,7 @@ class App extends Component {
         <ul>
           {this.state.people ? this.state.people.map(option => <li>{option}</li>) : ''}
         </ul>
-        <button className="doneAdopting" onClick={this.removePerson}>I'm done adopting</button>
+        <button className="doneAdopting" onClick={this.removePerson}>I'm done adopting (next person in line)</button>
       </section>
 
     </main>
