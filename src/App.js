@@ -141,7 +141,12 @@ class App extends Component {
       <h1>ADOPT A PET</h1>
       {this.state.tutorial ? 
         <section>
-          <p className='tutorial'>tutorial page</p>
+          <p className='tutorial'>
+            You will enter your name.  Then you will wait in line.  Then you
+            will adopt as many pets as you can feed.  You will adopt them in the
+            order our shelter received them.  Once you are finished, you will
+            click "I'm done adopting" and go home and play with them.  Good day.
+          </p>
           <form onSubmit={this.tutorialFinished} className="personName">
             <label htmlFor="newPerson">You will input your name.</label>
             <input type="text" name="newPerson" value={this.state.newPerson} onChange={this.updateName} required />
