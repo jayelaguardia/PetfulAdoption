@@ -6,9 +6,9 @@ class App extends Component {
     super(props)
 
     this.state = {
-      cats: {},
-      dogs: {},
-      people: {},
+      cats: [],
+      dogs: [],
+      people: [],
       }
   }
 
