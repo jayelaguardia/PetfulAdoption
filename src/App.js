@@ -9,10 +9,12 @@ class App extends Component {
       cats: [],
       dogs: [],
       people: [],
+      tutorial: true,
+      newPerson: ''
       }
   }
 
-  componentDidMount(){
+  fetchCat = () => {
     fetch(`http://localhost:8000/pets/api/cat`, {
       headers : { 
         'Content-Type': 'application/json',
@@ -24,6 +26,9 @@ class App extends Component {
       .then((data) => {
         this.setState({cats: data})
       });
+  }
+
+  fetchDog = () => {
     fetch(`http://localhost:8000/pets/api/dog`, {
       headers : { 
         'Content-Type': 'application/json',
@@ -35,6 +40,9 @@ class App extends Component {
       .then((data) => {
         this.setState({dogs: data})
       });
+  }
+
+  fetchPeople = () => {
     fetch(`http://localhost:8000/people`, {
       headers : { 
         'Content-Type': 'application/json',
@@ -49,37 +57,117 @@ class App extends Component {
       });
   }
 
-  // lepeople = array => {
-  //   return array.map(option => {
-  //     return <li>{option ? option : ''}</li>
-  //   })
-  // }
+  removePerson = () => {
+    fetch(`http://localhost:8000/people`, {
+      method: 'DELETE',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+        }}) 
+      .then((response) => {
+        this.fetchPeople()
+      })
 
-  // lepeople = this.state.people.map(option => {
-  //       return <li>{option ? option : ''}</li>
-  //     })
+  }
 
+  addPerson = () => {
+    const body = {newPerson: this.state.newPerson}
+    fetch(`http://localhost:8000/people`, {
+      method: 'POST',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+        },
+      body: JSON.stringify(body)
+      }) 
+      .then((response) => {
+        this.fetchPeople()
+      })
+
+  }
+
+  tutorialFinished = () => {
+    this.setState({
+      tutorial: false
+    }, this.addPerson())
+  }
+
+
+  componentDidMount(){
+    this.fetchCat()
+    this.fetchDog()
+    this.fetchPeople()
+  }
+
+
+  adoptCat = () => {
+    fetch(`http://localhost:8000/pets/api/cat`, {
+      method: 'DELETE',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }}) 
+      .then((response) => {
+        this.fetchCat()
+
+      })
+  }
+
+  adoptDog = () => {
+    fetch(`http://localhost:8000/pets/api/dog`, {
+      method: 'DELETE',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }}) 
+      .then((response) => {
+        this.fetchDog()
+      })
+  }
+
+  updateName = (event) => {
+    event.preventDefault();
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value,
+    })
+  }
 
   render() {
     return(
       <main className='App'>
       <h1>ADOPT A PET</h1>
-      <section>
-        <p className='tutorial'>tutorial page</p>
-        <button>tutorial go away</button>
-      </section>
+      {this.state.tutorial ? 
+        <section>
+          <p className='tutorial'>tutorial page</p>
+          <form onSubmit={this.tutorialFinished} className="personName">
+            <label htmlFor="newPerson">You will input your name.</label>
+            <input type="text" name="newPerson" value={this.state.newPerson} onChange={this.updateName} required />
 
-      <section>
-        <img src={this.state.cats[0] ? this.state.cats[0].imageURL : ''} alt='a cat'/>
-        <ul>
-          <li>{this.state.cats[0] ? this.state.cats[0].name : ''}</li>
-          <li>{this.state.cats[0] ? this.state.cats[0].age : ''}</li>
-          <li>{this.state.cats[0] ? this.state.cats[0].breed : ''}</li>
-          <li>{this.state.cats[0] ? this.state.cats[0].gender : ''}</li>
-          <li>{this.state.cats[0] ? this.state.cats[0].description : ''}</li>
-          <li>{this.state.cats[0] ? this.state.cats[0].story : ''}</li>
-        </ul>
+            <button>Yes, I will adopt.</button>
+          </form>
+          
+        </section> :
+        '' }
 
+      <section className="petSection">
+        
+        <div className="catDiv">
+          <img src={this.state.cats[0] ? this.state.cats[0].imageURL : ''} alt='a cat'/>
+          <ul>
+            <li>{this.state.cats[0] ? this.state.cats[0].name : ''}</li>
+            <li>{this.state.cats[0] ? this.state.cats[0].age : ''}</li>
+            <li>{this.state.cats[0] ? this.state.cats[0].breed : ''}</li>
+            <li>{this.state.cats[0] ? this.state.cats[0].gender : ''}</li>
+            <li>{this.state.cats[0] ? this.state.cats[0].description : ''}</li>
+            <li>{this.state.cats[0] ? this.state.cats[0].story : ''}</li>
+          </ul>
+          <button className="adoptCat" onClick={this.adoptCat}>Adopt Me!</button>
+        </div>
+        
+        <div className="dogDiv">
         <img src={this.state.dogs[0] ? this.state.dogs[0].imageURL : ''} alt='a dog'/>
         <ul>
           <li>{this.state.dogs[0] ? this.state.dogs[0].name : ''}</li>
@@ -89,13 +177,15 @@ class App extends Component {
           <li>{this.state.dogs[0] ? this.state.dogs[0].description : ''}</li>
           <li>{this.state.dogs[0] ? this.state.dogs[0].story : ''}</li>
         </ul>
+        <button className="adoptDog" onClick={this.adoptDog}>Adopt Me!</button>
+        </div>
       </section>
 
       <section>
         <ul>
-          {/* {this.state.people ? this.lepeople(this.state.people) : ''} */}
           {this.state.people ? this.state.people.map(option => <li>{option}</li>) : ''}
         </ul>
+        <button className="doneAdopting" onClick={this.removePerson}>I'm done adopting</button>
       </section>
 
     </main>
