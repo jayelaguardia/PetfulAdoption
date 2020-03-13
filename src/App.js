@@ -53,7 +53,6 @@ class App extends Component {
       })
       .then((data) => {
         this.setState({people: data})
-        console.log(this.state)
       });
   }
 
