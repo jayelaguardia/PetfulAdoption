@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import API_ENDPOINT from './config'
+import api from './config'
 
 class App extends Component {
   constructor(props){
@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   fetchCat = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/pets/api/cat`, {
+    fetch(`${api.API_ENDPOINT}/pets/api/cat`, {
       headers : { 
         'Content-Type': 'application/json'
        }}) 
@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   fetchDog = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/pets/api/dog`, {
+    fetch(`${api.API_ENDPOINT}/pets/api/dog`, {
       headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   fetchPeople = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/people`, {
+    fetch(`${api.API_ENDPOINT}/people`, {
       headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   removePerson = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/people`, {
+    fetch(`${api.API_ENDPOINT}/people`, {
       method: 'DELETE',
       headers : { 
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ class App extends Component {
 
   addPerson = () => {
     const body = {newPerson: this.state.newPerson}
-    fetch(`https://powerful-badlands-69710.herokuapp.com/people`, {
+    fetch(`${api.API_ENDPOINT}/people`, {
       method: 'POST',
       headers : { 
         'Content-Type': 'application/json',
@@ -92,7 +92,6 @@ class App extends Component {
 
 
   componentDidMount(){
-    console.log(API_ENDPOINT)
     this.fetchCat()
     this.fetchDog()
     this.fetchPeople()
@@ -100,7 +99,7 @@ class App extends Component {
 
 
   adoptCat = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/pets/api/cat`, {
+    fetch(`${api.API_ENDPOINT}/pets/api/cat`, {
       method: 'DELETE',
       headers : { 
         'Content-Type': 'application/json',
@@ -113,7 +112,7 @@ class App extends Component {
   }
 
   adoptDog = () => {
-    fetch(`https://powerful-badlands-69710.herokuapp.com/pets/api/dog`, {
+    fetch(`${api.API_ENDPOINT}/pets/api/dog`, {
       method: 'DELETE',
       headers : { 
         'Content-Type': 'application/json',
@@ -139,8 +138,8 @@ class App extends Component {
       <main className='App'>
       <h1>ADOPT A PET</h1>
       {this.state.tutorial ? 
-        <section>
-          <p className='tutorial'>
+        <section className='tutorial'>
+          <p >
             You will enter your name.  Then you will wait in line.  Then you
             will adopt as many pets as you can feed.  You will adopt them in the
             order our shelter received them.  Once you are finished, you will

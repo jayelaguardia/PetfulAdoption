@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "alias": "petful-app",
+  "name": "petful-app",
+  "routes": [
+      { "handle": "filesystem" },
+      { "src": "/.*", "dest": "/index.html" }
+  ]
+}
