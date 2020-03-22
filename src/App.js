@@ -15,7 +15,8 @@ class App extends Component {
       dogs: [],
       people: [],
       tutorial: true,
-      newPerson: ''
+      newPerson: '',
+      confirmation: ''
       }
   }
 
@@ -105,8 +106,13 @@ adoptCat = () => {
       'Accept': 'application/json'
      }}) 
     .then((response) => {
-      this.fetchCat()
-
+      this.setState({
+        tutorial: true,
+        confirmation: `${this.state.people[0]} has adopted ${this.state.cats[0].name}`
+      }, this.fetchCat())
+    })
+    .then(() => {
+      this.removePerson()
     })
 }
 
@@ -118,7 +124,13 @@ adoptDog = () => {
       'Accept': 'application/json'
      }}) 
     .then((response) => {
-      this.fetchDog()
+      this.setState({
+        tutorial: true,
+        confirmation: `${this.state.people[0]} has adopted ${this.state.dogs[0].name}`
+      }, this.fetchDog())
+    })
+    .then(() => {
+      this.removePerson()
     })
 }
 
@@ -154,14 +166,14 @@ updateName = (event) => {
     
     return(
     <>
-      <h1>ADOPT A PET</h1>  
+      <h1 id='top'>ADOPT A PET</h1>  
       <main className='App'>      
         
       <Route exact path='/adoption'>  
         <Adoption propsPassed={this.propsPassed} state={this.state} />
       </Route>
 
-      <Route path='/'>
+      <Route exact path='/'>
         <Landing />
       </Route>
 
