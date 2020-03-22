@@ -1,25 +1,9 @@
-import React, { Component } from 'react';
 import api from './config'
-import Landing from './Landing'
-import Adoption from './Adoption'
-import { Route } from 'react-router-dom'
 
 
-
-class App extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      cats: [],
-      dogs: [],
-      people: [],
-      tutorial: true,
-      newPerson: ''
-      }
-  }
-
-  fetchCat = () => {
+const PetService = {
+  
+  fetchCat () {
     fetch(`${api.API_ENDPOINT}/pets/api/cat`, {
     headers : { 
       'Content-Type': 'application/json'
@@ -30,9 +14,9 @@ class App extends Component {
     .then((data) => {
       this.setState({cats: data})
     });
-}
+},
 
-  fetchDog = () => {
+  fetchDog () {
   fetch(`${api.API_ENDPOINT}/pets/api/dog`, {
     headers : { 
       'Content-Type': 'application/json',
@@ -44,9 +28,9 @@ class App extends Component {
     .then((data) => {
       this.setState({dogs: data})
     });
-}
+},
 
-fetchPeople = () => {
+fetchPeople () {
   fetch(`${api.API_ENDPOINT}/people`, {
     headers : { 
       'Content-Type': 'application/json',
@@ -58,9 +42,9 @@ fetchPeople = () => {
     .then((data) => {
       this.setState({people: data})
     });
-}
+},
 
-removePerson = () => {
+removePerson () {
   fetch(`${api.API_ENDPOINT}/people`, {
     method: 'DELETE',
     headers : { 
@@ -71,10 +55,10 @@ removePerson = () => {
       this.fetchPeople()
     })
 
-}
+},
 
 
-addPerson = () => {
+addPerson () {
   const body = {newPerson: this.state.newPerson}
   fetch(`${api.API_ENDPOINT}/people`, {
     method: 'POST',
@@ -88,16 +72,16 @@ addPerson = () => {
       this.fetchPeople()
     })
 
-}
+},
 
-tutorialFinished = () => {
+tutorialFinished () {
   this.setState({
     tutorial: false
   }, this.addPerson())
 
-}
+},
 
-adoptCat = () => {
+adoptCat () {
   fetch(`${api.API_ENDPOINT}/pets/api/cat`, {
     method: 'DELETE',
     headers : { 
@@ -108,9 +92,9 @@ adoptCat = () => {
       this.fetchCat()
 
     })
-}
+},
 
-adoptDog = () => {
+adoptDog () {
   fetch(`${api.API_ENDPOINT}/pets/api/dog`, {
     method: 'DELETE',
     headers : { 
@@ -120,9 +104,9 @@ adoptDog = () => {
     .then((response) => {
       this.fetchDog()
     })
-}
+},
 
-updateName = (event) => {
+updateName (event) {
   event.preventDefault();
   const target = event.target;
   const name = target.name;
@@ -131,44 +115,6 @@ updateName = (event) => {
     [name]: value,
   })
 }
-
-  componentDidMount(){
-    this.fetchCat()
-    this.fetchPeople()
-    this.fetchDog()
-  }
-
-  propsPassed = {
-    fetchCat: this.fetchCat,
-    fetchDog: this.fetchDog,
-    fetchPeople: this.fetchPeople,
-    removePerson: this.removePerson,
-    addPerson: this.addPerson,
-    tutorialFinished: this.tutorialFinished,
-    adoptCat: this.adoptCat,
-    adoptDog: this.adoptDog,
-    updateName: this.updateName
-  }
-
-  render() {
-    
-    return(
-    <>
-      <h1>ADOPT A PET</h1>  
-      <main className='App'>      
-        
-      <Route exact path='/adoption'>  
-        <Adoption propsPassed={this.propsPassed} state={this.state} />
-      </Route>
-
-      <Route path='/'>
-        <Landing />
-      </Route>
-
-      </main>
-    </>
-    )
-  }
 }
 
-export default App;
+export default PetService;
