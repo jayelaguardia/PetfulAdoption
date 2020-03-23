@@ -21,7 +21,7 @@ export default class Landing extends Component {
           order our shelter received them.  Once you are finished, you will
           click "I'm done adopting" and go home and play with them.  Good day.
         </p>
-        <Link to='/adoption'>Let's adopt!</Link>
+        <button><Link to='/adoption'>Let's adopt!</Link></button>
       </div>
     )
   }

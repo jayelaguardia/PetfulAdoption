@@ -95,6 +95,7 @@ tutorialFinished = () => {
   this.setState({
     tutorial: false
   }, this.addPerson())
+  this.simulateLine()
 
 }
 
@@ -150,6 +151,18 @@ updateName = (event) => {
     this.fetchDog()
   }
 
+  simulateLine = () => {
+    let linePromise = new Promise((resolve, reject) => {
+      setTimeout(this.removePerson, 7000)
+    }
+      
+
+
+    //  {
+    //   setTimeout((this.state.people.push('testperson')), 5000)
+    // }
+  }
+
   propsPassed = {
     fetchCat: this.fetchCat,
     fetchDog: this.fetchDog,
@@ -159,8 +172,11 @@ updateName = (event) => {
     tutorialFinished: this.tutorialFinished,
     adoptCat: this.adoptCat,
     adoptDog: this.adoptDog,
-    updateName: this.updateName
+    updateName: this.updateName,
+    simulateLine: this.simulateLine
   }
+
+  
 
   render() {
     
@@ -174,7 +190,7 @@ updateName = (event) => {
       </Route>
 
       <Route exact path='/'>
-        <Landing />
+        <Landing propsPassed={this.propsPassed} />
       </Route>
 
       </main>
