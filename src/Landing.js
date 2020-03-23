@@ -15,7 +15,7 @@ export default class Landing extends Component {
   render() {
     return (
       <div>
-        <p>
+        <p className='tutorial'>
           You will enter your name.  Then you will wait in line.  Then you
           will adopt as many pets as you can feed.  You will adopt them in the
           order our shelter received them.  Once you are finished, you will

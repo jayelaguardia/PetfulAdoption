@@ -8,18 +8,22 @@ body {
   color: black;
   text-align: center;
   line-height: 1.5;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
-  background-image: url("./sprinkles.png");
+  background-image: url("./polka.jpg");
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   color: #2A0800;
 }
 
-.catDiv, .dogDiv {
-  margin: 30px;
+a {
+  text-decoration: none;
+  color: black
 }
 
 ul {
@@ -31,7 +35,10 @@ ul {
 .tutorial {
   padding: 20px;
   background-color: #F4DBD8;
+}
 
+p {
+  background-color: #775144;
 }
 
 img {
@@ -48,4 +55,14 @@ button {
 button:hover {
   cursor: pointer;
   background-color: #F4DBD8;
+}
+
+@media (max-width: 550px){
+  main > *{
+    max-width: 80vw;
+  }
+
+  img {
+    width: 250px;
+  }
 }

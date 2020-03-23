@@ -152,11 +152,13 @@ updateName = (event) => {
   }
 
   simulateLine = () => {
-    let linePromise = new Promise((resolve, reject) => {
-      setTimeout(this.removePerson, 7000)
+    // let linePromise = new Promise((resolve, reject) => {
+    //   setTimeout(this.removePerson, 7000)
+    // })
+    let inFront = this.state.people.indexOf(this.state.newPerson)
+    for(let i =  0; i < inFront; i++){
+      setTimeout(this.removePerson, 5000*(i+1))
     }
-      
-
 
     //  {
     //   setTimeout((this.state.people.push('testperson')), 5000)
