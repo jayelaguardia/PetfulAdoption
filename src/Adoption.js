@@ -18,6 +18,15 @@ export default class Adoption extends Component {
         </section> :
         '' }
 
+        
+
+        <section>
+        <p>Adoption queue: </p>
+        <ul>
+          {this.props.state.people ? this.props.state.people.map(option => <li>{option}</li>) : ''}
+        </ul>
+      </section>
+
         <p>{this.props.state.confirmation}</p>
         
         <section className="petSection">
@@ -32,7 +41,7 @@ export default class Adoption extends Component {
             <li>{this.props.state.cats[0] ? this.props.state.cats[0].description : ''}</li>
             <li>{this.props.state.cats[0] ? this.props.state.cats[0].story : ''}</li>
           </ul>
-          <button disabled={this.props.state.people[0] !== this.props.state.newPerson} className="adoptCat" onClick={this.props.propsPassed.adoptCat}> <a href="#top">Adopt Me!</a></button>
+          <button disabled={this.props.state.people[0] !== this.props.state.newPerson} className="adoptCat" onClick={this.props.propsPassed.adoptCatUser}> <a href="#top">Adopt Me!</a></button>
           <p>Next up</p>
           <img src={this.props.state.cats[1] ? this.props.state.cats[1].imageURL : ''} alt='a cat'/>
           <ul>
@@ -66,7 +75,7 @@ export default class Adoption extends Component {
           <li>{this.props.state.dogs[0] ? this.props.state.dogs[0].description : ''}</li>
           <li>{this.props.state.dogs[0] ? this.props.state.dogs[0].story : ''}</li>
         </ul>
-        <button disabled={this.props.state.people[0] !== this.props.state.newPerson} className="adoptDog" onClick={this.props.propsPassed.adoptDog}> <a href="#top">Adopt Me!</a></button>
+        <button disabled={this.props.state.people[0] !== this.props.state.newPerson} className="adoptDog" onClick={this.props.propsPassed.adoptDogUser}> <a href="#top">Adopt Me!</a></button>
         <p>Next up</p>
         <img src={this.props.state.dogs[1] ? this.props.state.dogs[1].imageURL : ''} alt='a dog'/>
         <ul>
@@ -90,12 +99,7 @@ export default class Adoption extends Component {
         </div>
       </section>
 
-      <section>
-        <ul>
-          {this.props.state.people ? this.props.state.people.map(option => <li>{option}</li>) : ''}
-        </ul>
-        <button className="doneAdopting" onClick={this.props.propsPassed.removePerson}>I'm done adopting (next person in line)</button>
-      </section>
+     
     </>   
     )
   }

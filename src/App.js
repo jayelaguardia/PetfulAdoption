@@ -16,7 +16,8 @@ class App extends Component {
       people: [],
       tutorial: true,
       newPerson: '',
-      confirmation: ''
+      confirmation: '',
+      inFront: 0
       }
   }
 
@@ -88,14 +89,33 @@ addPerson = () => {
     .then((response) => {
       this.fetchPeople()
     })
+}
 
+addRandomPerson = () => {
+  let randos = ['Elvis Presley', 'George Washington', 'Ben Franklin', 'Faker', 'Gimli', 'Bilbo Baggins', 'Gandalf', 'Your 3rd Grade Teacher']
+  let randoRando = Math.floor(Math.random() * 8);
+  
+  let newRando = randos[randoRando]
+  console.log(newRando)
+  const body = {newPerson: newRando}
+  fetch(`${api.API_ENDPOINT}/people`, {
+    method: 'POST',
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+      },
+    body: JSON.stringify(body)
+    }) 
+    .then((response) => {
+      this.fetchPeople()
+    })
 }
 
 tutorialFinished = () => {
   this.setState({
     tutorial: false
   }, this.addPerson())
-  this.simulateLine()
+  this.simulateNewCustomers()
 
 }
 
@@ -108,13 +128,19 @@ adoptCat = () => {
      }}) 
     .then((response) => {
       this.setState({
-        tutorial: true,
         confirmation: `${this.state.people[0]} has adopted ${this.state.cats[0].name}`
       }, this.fetchCat())
     })
     .then(() => {
       this.removePerson()
     })
+}
+
+adoptCatUser = () => {
+  this.adoptCat()
+  this.setState({
+    tutorial: true
+  })
 }
 
 adoptDog = () => {
@@ -126,13 +152,19 @@ adoptDog = () => {
      }}) 
     .then((response) => {
       this.setState({
-        tutorial: true,
         confirmation: `${this.state.people[0]} has adopted ${this.state.dogs[0].name}`
       }, this.fetchDog())
     })
     .then(() => {
       this.removePerson()
     })
+}
+
+adoptDogUser = () => {
+  this.adoptDog()
+  this.setState({
+    tutorial: true
+  })
 }
 
 updateName = (event) => {
@@ -149,21 +181,40 @@ updateName = (event) => {
     this.fetchCat()
     this.fetchPeople()
     this.fetchDog()
+    this.setState({
+      newPerson: ''
+    })
+  }
+
+
+  simulateNewCustomers = () => {
+    setTimeout(this.simulateLine, 5000)
+    
   }
 
   simulateLine = () => {
-    // let linePromise = new Promise((resolve, reject) => {
-    //   setTimeout(this.removePerson, 7000)
-    // })
-    let inFront = this.state.people.indexOf(this.state.newPerson)
-    for(let i =  0; i < inFront; i++){
-      setTimeout(this.removePerson, 5000*(i+1))
-    }
+    
+    if(this.state.people.indexOf(this.state.newPerson) === -1) {
+      return this.setState({
+        newPerson: '',
+        tutorial: true
+      })
 
-    //  {
-    //   setTimeout((this.state.people.push('testperson')), 5000)
-    // }
+    }
+    if(this.state.people[0] !== this.state.newPerson) {
+      let flippedCoin = Math.floor(Math.random() * 2) + 1;
+      if(flippedCoin === 1) {
+        this.adoptCat()
+      } else {this.adoptDog()}
+      setTimeout(this.simulateLine, 5000)
+    }
+    if (this.state.people[0] === this.state.newPerson && this.state.people.length < 6) {
+      this.addRandomPerson()
+      setTimeout(this.simulateLine, 5000)
+    }
   }
+
+  
 
   propsPassed = {
     fetchCat: this.fetchCat,
@@ -175,7 +226,9 @@ updateName = (event) => {
     adoptCat: this.adoptCat,
     adoptDog: this.adoptDog,
     updateName: this.updateName,
-    simulateLine: this.simulateLine
+    simulateLine: this.simulateLine,
+    adoptCatUser: this.adoptCatUser,
+    adoptDogUser: this.adoptDogUser
   }
 
   

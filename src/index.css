@@ -43,6 +43,7 @@ p {
 
 img {
   border: solid #775144;
+  max-width: 90vw;
 }
 
 button {
