@@ -5,7 +5,7 @@
 The user can enter their name to get in line to adopt a pet. The choice of pets shown is in order of when the shelter received them. The user can only adopt when it is their turn. The user may also adopt as many pets as they desire.
 
 ### Live App
-[Adopt A Pet](https://build-theta-ecru.now.sh)
+[Adopt A Pet](https://fifoadoption.now.sh)
 
 ### Tech Stacks
 - React
