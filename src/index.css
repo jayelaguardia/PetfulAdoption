@@ -56,7 +56,7 @@ button {
 }
 
 button:disabled {
-  opacity: 50%; 
+  opacity: 70%; 
   cursor: not-allowed;
 }
 
