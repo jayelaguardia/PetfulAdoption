@@ -72,20 +72,29 @@ button:hover {
 .petSection {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .catDiv, .dogDiv {
   margin: 20px;
   margin-top: 0px;
+  width: 500px;
 }
 
 @media (max-width: 768px){
   main > *{
     max-width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .petSection {
     flex-direction: column;
+  }
+
+  .catDiv, .dogDiv {
+    width: 250px;
+    margin: 0px;
   }
 }
 
@@ -93,5 +102,9 @@ button:hover {
   img {
     width: 200px;
     height: 150px;
+  }
+
+  .catDiv, .dogDiv {
+    width: 350px;
   }
 }
