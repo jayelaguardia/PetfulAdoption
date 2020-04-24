@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import api from './config'
 import Landing from './Landing'
 import Adoption from './Adoption'
-import { Route } from 'react-router-dom'
-
+import { Route, Link } from 'react-router-dom'
 
 
 class App extends Component {
@@ -141,6 +140,7 @@ adoptCatUser = () => {
   this.setState({
     tutorial: true
   })
+  window.scrollTo(0, 0)
 }
 
 adoptDog = () => {
@@ -165,6 +165,7 @@ adoptDogUser = () => {
   this.setState({
     tutorial: true
   })
+  window.scrollTo(0, 0)
 }
 
 updateName = (event) => {
@@ -237,7 +238,7 @@ updateName = (event) => {
     
     return(
     <>
-      <h1 id='top'>ADOPT A PET</h1>  
+      <Link to="/"><h1 id='top' >ADOPT A PET</h1></Link>  
       <main className='App'>      
         
       <Route exact path='/adoption'>  

@@ -43,7 +43,8 @@ p {
 
 img {
   border: solid #775144;
-  max-width: 90vw;
+  width: 500px;
+  height: 300px;
 }
 
 button {
@@ -51,6 +52,16 @@ button {
   font-size: 20px;
   background-color: #C09891;
   border: solid #775144;
+  margin: 10px;
+}
+
+button:disabled {
+  opacity: 50%; 
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  cursor: not-allowed;
 }
 
 button:hover {
@@ -58,12 +69,29 @@ button:hover {
   background-color: #F4DBD8;
 }
 
-@media (max-width: 550px){
+.petSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.catDiv, .dogDiv {
+  margin: 20px;
+  margin-top: 0px;
+}
+
+@media (max-width: 768px){
   main > *{
     max-width: 80vw;
   }
 
+  .petSection {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1024px){
   img {
-    width: 250px;
+    width: 200px;
+    height: 150px;
   }
 }
